@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 language: python
 python:
   - "3.7"
@@ -7,4 +8,3 @@ install:
   - pip install -r requirements.txt
 # command to run tests
 script:
-  - pytest

@@ -81,6 +81,3 @@ def test_opening_lit_ok_3(ok_3):
     assert result == ["i", "i", "i"]    
 
 
-
- 
-
