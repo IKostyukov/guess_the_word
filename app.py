@@ -47,7 +47,7 @@ def veryficaition(lit):
         return get_new_literal()
 
     else:
-        return lit
+        return 34
 
 def make_count_less(count, word):
     """Делает счетчик меньньше, и если после этого он равен нулю,
