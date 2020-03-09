@@ -2,7 +2,10 @@ import random
 
 count = 4
 words = ['skillfactory', 'testing', 'blackbox', 'pytest', 'unittest', 'coverage']
+lit = ""
 used_lit = ""
+new_game = False
+frame = []
 
 def hello():
     """Выбирает слово из списка"""
@@ -13,7 +16,7 @@ def hello():
 
 def make_frame(word):
     """Создает и выводит на экран рамку/макет _ _ _ _ ...,
-     в которой нужно  открывать буквыЭЭ"""
+     в которой нужно  открывать буквы"""
     len_word = len(word)
     frame = ["_" for i in range(len_word)] 
     print(' '.join(frame))
@@ -63,6 +66,10 @@ def make_count_less(count, word):
             frame = make_frame(word)
 
             return count
+        
+        else:
+            new_game = False
+            return new_game
     else:
         print(f'Такой буквы нет в этом слове.\nПопробуй еше - осталось {count} попытки')
         print(' '.join(frame))
@@ -102,29 +109,40 @@ def opening_lit():
         print(' '.join(frame))
         return frame
 
+if __name__ == '__main__':
+    new_game = True
 
-word = hello()
-frame = make_frame(word) 
-while count > 0:
-    if "_" not in frame: #Проверяем не отгаданы ли уже все буквы
-        print("Вы угадади!")
-        game = input("Хотите играть еще раз?  (y or n)  ")
-        if game.startswith("y"): #Начинаем новую игру
-            count = 4
-            word = hello()
-            frame = make_frame(word)
-            continue
-        else:   #Выходим из игры
+    word = hello()
+    frame = make_frame(word) 
+
+    while count != 0:
+        if new_game == True:
+            if "_" not in frame: #Проверяем не отгаданы ли уже все буквы
+                print("Вы угадади!")
+                game = input("Хотите играть еще раз?  (y or n)  ")
+                if game.startswith("y"): #Начинаем новую игру
+                    count = 4
+                    word = hello()
+                    frame = make_frame(word)
+                    continue
+                else:   #Выходим из игры
+                    break
+            else:   #Если буквы не отгаданны
+                lit = None   #Обнуляем переменную
+                lit = get_new_literal()  #Полулаем новую букву
+                used_lit += lit  #Добавляем новую букву в спсок использованных букв
+                if lit not in word: #Если буква не в слове, уменьшаем счетчик и продолжаем цикл
+                    count = make_count_less(count, word)
+                    continue  
+                # lit = veryficaition(lit)        
+                else: # Если буква в слове, то вызываем функцию, для открытия буквы
+                    frame = opening_lit()
+        
+        else:
             break
-    else:   #Если буквы не отгаданны
-        lit = None   #Обнуляем переменную
-        lit = get_new_literal()  #Полулаем новую букву
-        used_lit += lit  #Добавляем новую букву в спсок использованных букв
-        if lit not in word: #Если буква не в слове, уменьшаем счетчик и продолжаем цикл
-            count = make_count_less(count, word)
-            continue  
-        # lit = veryficaition(lit)        
-        else: # Если буква в слове, то вызываем функцию, для открытия буквы
-            frame = opening_lit()
-            
 
+# if __name__ == '__main__':
+#     word = word
+
+
+    
